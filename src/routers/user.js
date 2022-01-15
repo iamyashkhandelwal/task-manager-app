@@ -5,6 +5,17 @@ const auth = require('../middleware/auth');
 const multer = require('multer');
 const sharp = require('sharp');
 
+router.get('/', (req, res) => {
+    res.render('index');
+})
+
+router.get('/signup', (req,res) => {
+    res.render('signup');
+})
+
+router.get('/login', (req, res) => {
+    res.render('login');
+})
 
 router.post('/users', async (req, res) => {
     console.log(req.body);

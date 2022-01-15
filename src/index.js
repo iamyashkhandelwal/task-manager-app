@@ -8,6 +8,27 @@ const hbs = require('hbs')
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({
+//     extended: true
+// }));
+
+// Define paths for express config
+const publicDirectoryPath = path.join(__dirname,'../public');
+const viewsPath = path.join(__dirname, '../templates/views');
+
+//Setup handlebars and views location
+app.set('view engine', 'hbs');
+app.set('views', viewsPath);
+
+
+//Setup static directory to serve
+app.use(express.static(publicDirectoryPath));
+
+
 
 // Without MiddleWare: new request -> run route handler
 // With Middleware: new request -> do something -> run route handler
@@ -58,7 +79,7 @@ const port = process.env.PORT || 3000;
 
 
 //express will convert the incoming request data from json to javascript object
-app.use(express.json());
+// app.use(express.json());
 // Register 'router' with express
 app.use(userRouter);
 app.use(taskRouter);
