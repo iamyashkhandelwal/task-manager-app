@@ -43,10 +43,14 @@ router.post('/users/login', async (req,res) => {
         const user = await User.findByCredentials(req.body.email, req.body.password);
 
         const token = await user.generateAuthToken();
+
+        if(res.status === 400){
+            return res.send({error: 'invalid credentials'})
+        }
     
         res.send({user, token});
     } catch (error) {
-        res.status(400).send(error);
+        res.status(400).send({error: error.message});
     }
 })
 
